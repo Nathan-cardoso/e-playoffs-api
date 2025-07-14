@@ -27,10 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'rest_framework.authtoken',
+    'dj_rest_auth',
     'rest_framework_simplejwt',
     'drf_spectacular',
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
     'players',
     'allauth',
     'allauth.account',
@@ -144,14 +143,9 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 }
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+JWT_AUTH_COOKIE = 'jwt-auth-token'
+JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'  # ou outro servidor SMTP
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'seuemail@gmail.com'
-EMAIL_HOST_PASSWORD = 'sua_senha_app'  # Gere uma senha de app se usar Gmail
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
 

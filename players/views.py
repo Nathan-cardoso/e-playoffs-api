@@ -3,6 +3,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Tournament, TournamentParticipant
 from .serializer import TournamentSerializer
+from django.conf import settings
+from django.http import HttpResponseRedirect
 
 class TournamentViewSet(viewsets.ModelViewSet):
     queryset = Tournament.objects.all()
