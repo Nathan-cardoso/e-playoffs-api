@@ -25,17 +25,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    #Rest framework
     'rest_framework',
-    'rest_framework.authtoken',
-    'dj_rest_auth',
     'rest_framework_simplejwt',
     'drf_spectacular',
-    'players',
+    #Auth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    # APPs
+    'players',
 ]
+
 
 SITE_ID = 1
 
@@ -145,6 +148,13 @@ SIMPLE_JWT = {
 
 JWT_AUTH_COOKIE = 'jwt-auth-token'
 JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
+
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
 
 
 
