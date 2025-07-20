@@ -43,19 +43,35 @@ class Player(AbstractUser):
     )
 
 class Tournament(models.Model):
+
+    GAME_CHOICES = (
+        ('League of Legends', 'League of Legends'),
+        ('CS:GO', 'CS:GO'),
+        ('Valorant', 'Valorant'),
+        ('FIFA', 'FIFA'),
+        ('Dragon Ball FighterZ', 'Dragon Ball FighterZ')
+    )
+
     name = models.CharField(
         max_length=100
     )
-    description = models.TextField(blank=True, null=True)
+
+    description = models.TextField(
+        blank=True,
+        null=True
+    )
 
     game = models.CharField(
+        choices=GAME_CHOICES,
         max_length=100
     )
-    date = models.DateField()
+
+    date_start = models.DateField()
 
     created_at = models.DateTimeField(
         auto_now_add=True
     )
+
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -67,6 +83,24 @@ class Tournament(models.Model):
         through='TournamentParticipant',
         related_name='tournaments_participated'
     )
+
+    server_discord = models.URLField(
+        blank=True,
+        null=True,
+        default=None,
+    )
+
+    public = models.BooleanField(
+        default=True,
+        help_text='Torneio visível para todos os usuários.'
+    )
+
+    value = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        default=0.00
+    )
+
 
     def __str__(self):
         return self.name

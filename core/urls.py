@@ -1,24 +1,20 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from players.views import TournamentViewSet
+from players.views import TournamentViewSet, PLayerHomeViewSet
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-from dj_rest_auth.registration.views import (
-    RegisterView, VerifyEmailView, ResendEmailVerificationView
-)
-# from dj_rest_auth.views import (
-#     LoginView, LogoutView, UserDetailsView,
-#     PasswordResetView, PasswordResetConfirmView
-# )
+from dj_rest_auth.registration.views import RegisterView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
 
+
 router = routers.DefaultRouter()
 
 router.register(r'torneios', TournamentViewSet, basename='tournament')
+router.register(r'player', PLayerHomeViewSet, basename='user')
 
 urlpatterns = [
     # Admin
