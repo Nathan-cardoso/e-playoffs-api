@@ -45,7 +45,7 @@ class TournamentListSerializer(serializers.ModelSerializer):
 
 class TournamentDetailSerializer(serializers.ModelSerializer):
     owner = PlayerShortSerializer(read_only=True)
-    participants_info = TournamentParticipantSerializer(many=True, read_only=True, source='participants_info')
+    participants_info = TournamentParticipantSerializer(many=True, read_only=True)  # ✅ Correto agora
     is_owner = serializers.SerializerMethodField()
     is_participant = serializers.SerializerMethodField()
     game_display = serializers.CharField(source='get_game_display', read_only=True)
@@ -62,6 +62,7 @@ class TournamentDetailSerializer(serializers.ModelSerializer):
     def get_is_participant(self, obj):
         request = self.context.get('request')
         return request and obj.participants.filter(id=request.user.id).exists()
+
 
 class PlayerSerializer(serializers.ModelSerializer):
     owned_tournaments_count = serializers.IntegerField(source='owned_tournaments.count', read_only=True)

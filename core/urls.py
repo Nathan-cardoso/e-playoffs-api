@@ -10,6 +10,8 @@ from drf_spectacular.views import (
     SpectacularRedocView,
 )
 from players.views import TournamentViewSet, PlayerViewSet
+from dj_rest_auth.registration.views import RegisterView
+
 
 router = routers.DefaultRouter()
 router.register(r'torneios', TournamentViewSet, basename='tournament')
@@ -21,7 +23,7 @@ urlpatterns = [
     # Auth
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    
+    path("api/cadastro/", RegisterView.as_view(), name="rest_register"),
     # Docs
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
