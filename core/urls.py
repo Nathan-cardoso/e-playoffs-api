@@ -1,32 +1,29 @@
-from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from players.views import TournamentViewSet, PLayerHomeViewSet
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-from dj_rest_auth.registration.views import RegisterView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-
-
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView,
+)
+from players.views import TournamentViewSet, PlayerViewSet
 
 router = routers.DefaultRouter()
-
 router.register(r'torneios', TournamentViewSet, basename='tournament')
-router.register(r'player', PLayerHomeViewSet, basename='user')
+router.register(r'players', PlayerViewSet, basename='player')
 
 urlpatterns = [
-    # Admin
-    path('admin/', admin.site.urls),
-    # Rotas da API
     path('api/v1/', include(router.urls)),
-    #Auth
+    
+    # Auth
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/cadastro/', RegisterView.as_view(), name='rest_register'),
-    # Docs 
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # Docs
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
