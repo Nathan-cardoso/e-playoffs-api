@@ -50,13 +50,13 @@ class TournamentViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        if TournamentParticipant.objects.filter(tournament=tournament, player=player).exists():
+        if TournamentParticipant.objects.filter(tournament=tournament, user=player).exists():
             return Response(
                 {'detail': 'Você já está participando deste torneio.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        TournamentParticipant.objects.create(tournament=tournament, player=player)
+        TournamentParticipant.objects.create(tournament=tournament, user=player)
         return Response(
             {'detail': 'Participação confirmada com sucesso!'},
             status=status.HTTP_201_CREATED
